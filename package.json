@@ -2,6 +2,9 @@
   "name": "asti-backend",
   "version": "1.0.0",
   "main": "index.js",
+  "prisma": {
+    "schema": "src/database/prisma/schema.prisma"
+  },
   "scripts": {
     "start": "node dist/index.js",
     "build": "prisma generate && tsc",
@@ -13,16 +16,23 @@
   "author": "Ameen Sid",
   "type": "module",
   "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
     "uuid": "^14.0.1",
     "winston": "^3.19.0",
-    "winston-daily-rotate-file": "^5.0.0"
+    "winston-daily-rotate-file": "^5.0.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.2.0",
     "nodemon": "^3.1.14",
+    "prisma": "^5.22.0",
     "ts-node": "^10.9.2",
     "typescript": "^7.0.2"
   }
