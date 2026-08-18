@@ -5,7 +5,7 @@ export interface IDepartmentRepository {
   addDepartment(name: string): Promise<Department>;
   getDepartments(where: any, sortBy: string, sortOrder: string, skip: number, limit: number): Promise<Department[]>;
   updateDepartment(id: number, name: string): Promise<Department | null>;
-  deleteDepartment(id: number): Promise<Boolean>;
+  deleteDepartment(id: number): Promise<boolean>;
 }
 
 export class DepartmentRepository implements IDepartmentRepository {
@@ -29,7 +29,7 @@ export class DepartmentRepository implements IDepartmentRepository {
     });
   }
 
-  async deleteDepartment(id: number): Promise<Boolean> {
+  async deleteDepartment(id: number): Promise<boolean> {
     return await prisma.department.delete({ where: { id } }) ? true : false;
   }
 }

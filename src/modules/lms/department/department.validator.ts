@@ -17,5 +17,5 @@ export const departmentQuerySchema = z.object({
 });
 
 export const departmentIdParamSchema = z.object({
-  id: z.string().regex(/^\d+&/, 'Department ID must be a numeric string')
+  id: z.string().regex(/^\d+$/, 'Department ID must be a numeric string')
 });

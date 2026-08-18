@@ -57,7 +57,7 @@ export class DepartmentController {
   deleteDepartment = async (req: Request, res: Response, next: NextFunction) => {
     logger.info('Deleting Department', { id: req.params.id });
     const deletedDepartment = await this.departmentService.deleteDepartment(Number(req.params.id));
-    logger.info('Deleted Department Successfully', { data: this.deleteDepartment });
+    logger.info('Deleted Department Successfully', { data: deletedDepartment });
     res.status(200).json({
       success: true,
       message: 'Deleted Department Successfully',
