@@ -6,7 +6,7 @@ export interface ISubDepartmentService {
   addSubDepartment(name: string, departmentId: number): Promise<SubDepartment>;
   getSubDepartments(where: any, sortBy: string, sortOrder: string, skip: number, limit: number): Promise<SubDepartment[]>;
   updateSubDepartment(id: number, name?: string, departmentId?: number): Promise<SubDepartment | null>;
-  deleteSubDepartment(id: number): Promise<Boolean>;
+  deleteSubDepartment(id: number): Promise<boolean>;
 }
 
 export class SubDepartmentService implements ISubDepartmentService {
@@ -30,7 +30,7 @@ export class SubDepartmentService implements ISubDepartmentService {
     return await this.subDepartmentRepository.updateSubDepartment(id, name, departmentId);
   }
 
-  async deleteSubDepartment(id: number): Promise<Boolean> {
+  async deleteSubDepartment(id: number): Promise<boolean> {
     return await this.subDepartmentRepository.deleteSubDepartment(id);
   }
 }
