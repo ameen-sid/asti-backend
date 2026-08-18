@@ -3,10 +3,10 @@ import { IMachineRepository } from './machine.repository';
 import { BadRequestError } from '../../../shared/utils/errors/app.error';
 
 export interface IMachineService {
-  addMachine(name: string, departmentId: number, subDepartmentId: number, sectionid: number, lineId: number): Promise<Machine>;
+  addMachine(name: string, departmentId: number, subDepartmentId: number, sectionId: number, lineId: number): Promise<Machine>;
   getMachines(where: any, sortBy: string, sortOrder: string, skip: number, limit: number): Promise<Machine[]>;
   updateMachine(id: number, name?: string, departmentId?: number, subDepartmentId?: number, sectionId?: number, lineId?: number): Promise<Machine | null>;
-  deleteMachine(id: number): Promise<Boolean>;
+  deleteMachine(id: number): Promise<boolean>;
 }
 
 export class MachineService implements IMachineService {
@@ -30,7 +30,7 @@ export class MachineService implements IMachineService {
     return await this.machineRepository.updateMachine(id, name, departmentId, subDepartmentId, sectionId, lineId);
   }
 
-  async deleteMachine(id: number): Promise<Boolean> {
+  async deleteMachine(id: number): Promise<boolean> {
     return await this.machineRepository.deleteMachine(id);
   }
 }
