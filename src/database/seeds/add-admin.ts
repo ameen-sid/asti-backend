@@ -6,7 +6,7 @@ async function main() {
   const password = 'admin';
 
   console.log('Seeding admin user...');
-  const existingUser = await prisma.user.findUnique({ where: { email } });
+  const existingUser = await prisma.user.findFirst({ where: { email } });
   if (existingUser) {
     console.log(`User '${email}' already exists. Skipping...`);
     return;
