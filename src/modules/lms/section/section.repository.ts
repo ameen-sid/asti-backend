@@ -5,7 +5,7 @@ export interface ISectionRepository {
   addSection(name: string, departmentId: number, subDepartmentId: number): Promise<Section>;
   getSections(where: any, sortBy: string, sortOrder: string, skip: number, limit: number): Promise<Section[]>;
   updateSection(id: number, name?: string, departmentId?: number, subDepartmentId?: number): Promise<Section | null>;
-  deleteSection(id: number): Promise<Boolean>;
+  deleteSection(id: number): Promise<boolean>;
 }
 
 export class SectionRepository implements ISectionRepository {
@@ -30,7 +30,7 @@ export class SectionRepository implements ISectionRepository {
     });
   }
 
-  async deleteSection(id: number): Promise<Boolean> {
+  async deleteSection(id: number): Promise<boolean> {
     return await prisma.section.delete({ where: { id } }) ? true : false;
   }
 }
