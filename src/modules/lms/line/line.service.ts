@@ -3,10 +3,10 @@ import { ILineRepository } from './line.repository';
 import { BadRequestError } from '../../../shared/utils/errors/app.error';
 
 export interface ILineService {
-  addLine(name: string, departmentId: number, subDepartmentId: number, sectionid: number): Promise<Line>;
+  addLine(name: string, departmentId: number, subDepartmentId: number, sectionId: number): Promise<Line>;
   getLines(where: any, sortBy: string, sortOrder: string, skip: number, limit: number): Promise<Line[]>;
   updateLine(id: number, name?: string, departmentId?: number, subDepartmentId?: number, sectionId?: number): Promise<Line | null>;
-  deleteLine(id: number): Promise<Boolean>;
+  deleteLine(id: number): Promise<boolean>;
 }
 
 export class LineService implements ILineService {
@@ -30,7 +30,7 @@ export class LineService implements ILineService {
     return await this.lineRepository.updateLine(id, name, departmentId, subDepartmentId, sectionId);
   }
 
-  async deleteLine(id: number): Promise<Boolean> {
+  async deleteLine(id: number): Promise<boolean> {
     return await this.lineRepository.deleteLine(id);
   }
 }
