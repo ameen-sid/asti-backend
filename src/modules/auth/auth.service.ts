@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { serverConfig } from '../../config';
+import { serverConfig } from '../../config/index.js';
 import { IAuthRepository } from './auth.repository';
 import { UnauthorizedError } from '../../shared/utils/errors/app.error';
 

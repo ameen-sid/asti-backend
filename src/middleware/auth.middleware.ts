@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { serverConfig } from '../config';
+import { serverConfig } from '../config/index.js';
 import { UnauthorizedError, ForbiddenError } from '../shared/utils/errors/app.error';
 
 export interface AuthenticatedRequest extends Request {
