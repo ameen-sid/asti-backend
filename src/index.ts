@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import path from 'path';
 import { serverConfig } from './config';
 import v1Router from './routers/v1/index.router';
@@ -8,6 +9,13 @@ import { attachCorrelationIdMiddleware } from './middleware/correlation.middlewa
 import logger from './config/logger.config';
 
 const app = express();
+
+app.use(cors({
+  origin: serverConfig.CORS_ORIGIN === '*' ? '*' : serverConfig.CORS_ORIGIN.split(','),
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Correlation-Id'],
+}));
 
 app.use(express.json());
 

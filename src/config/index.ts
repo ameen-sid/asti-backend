@@ -6,6 +6,7 @@ type ServerConfig = {
   NODE_ENV: string;
   JWT_SECRET: string;
   JWT_EXPIRES_IN: string;
+  CORS_ORIGIN: string;
 };
 
 const loadEnv = () => {
@@ -20,4 +21,5 @@ export const serverConfig: ServerConfig = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   JWT_SECRET: process.env.JWT_SECRET || 'asti_super_secret_key_123',
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '24h',
+  CORS_ORIGIN: process.env.CORS_ORIGIN || '*',
 };
