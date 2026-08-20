@@ -40,7 +40,7 @@ app.use(appErrorHandler);
 app.use(prismaErrorHandler);
 app.use(genericErrorHandler);
 
-app.listen(serverConfig.PORT, async () => {
-  logger.info(`Server is running on http://localhost:${serverConfig.PORT}`);
+app.listen(serverConfig.PORT, "0.0.0.0", async () => {
+  logger.info(`Server is running on http://0.0.0.0:${serverConfig.PORT}`);
   logger.info(`Press Ctrl+C to stop the server.`);
 });
