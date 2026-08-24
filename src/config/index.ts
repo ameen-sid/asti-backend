@@ -18,7 +18,7 @@ loadEnv();
 export const serverConfig: ServerConfig = {
   PORT: Number(process.env.PORT) || 3001,
   DATABASE_URL: process.env.DATABASE_URL || '',
-  NODE_ENV: process.env.NODE_ENV || 'development',
+  NODE_ENV: (process.env.NODE_ENV || 'development').replace(/^"|"$/g, ''),
   JWT_SECRET: process.env.JWT_SECRET || 'asti_super_secret_key_123',
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '24h',
   CORS_ORIGIN: process.env.CORS_ORIGIN || '*',

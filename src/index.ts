@@ -11,7 +11,20 @@ import logger from './config/logger.config';
 const app = express();
 
 app.use(cors({
-  origin: serverConfig.CORS_ORIGIN === '*' ? '*' : serverConfig.CORS_ORIGIN.split(','),
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    
+    const corsEnv = serverConfig.CORS_ORIGIN || '*';
+    if (corsEnv === '*') return callback(null, true);
+
+    const allowedOrigins = corsEnv.split(',').map(o => o.trim().replace(/^"|"$/g, ''));
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+
+    if (/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+      return callback(null, true);
+    }
+    return callback(null, false);
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Correlation-Id'],
