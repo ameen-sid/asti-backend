@@ -5,11 +5,13 @@ import subDepartmentRouter from '../../modules/lms/sub-department/sub-department
 import sectionRouter from '../../modules/lms/section/section.routes';
 import lineRouter from '../../modules/lms/line/line.routes';
 import machineRouter from '../../modules/lms/machine/machine.routes';
+import userRouter from '../../modules/users/user.routes';
 import { authenticateToken } from '../../middleware/auth.middleware';
 
 const v1Router = express.Router();
 
 v1Router.use('/auth', authRouter);
+v1Router.use('/users', authenticateToken, userRouter);
 v1Router.use('/departments', authenticateToken, departmentRouter);
 v1Router.use('/sub-departments', authenticateToken, subDepartmentRouter);
 v1Router.use('/sections', authenticateToken, sectionRouter);
