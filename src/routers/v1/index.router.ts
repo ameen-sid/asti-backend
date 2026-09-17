@@ -5,6 +5,7 @@ import subDepartmentRouter from '../../modules/lms/sub-department/sub-department
 import sectionRouter from '../../modules/lms/section/section.routes';
 import lineRouter from '../../modules/lms/line/line.routes';
 import machineRouter from '../../modules/lms/machine/machine.routes';
+import employeeRouter from '../../modules/lms/employee/employee.routes';
 import userRouter from '../../modules/users/user.routes';
 import { authenticateToken } from '../../middleware/auth.middleware';
 
@@ -17,5 +18,6 @@ v1Router.use('/sub-departments', authenticateToken, subDepartmentRouter);
 v1Router.use('/sections', authenticateToken, sectionRouter);
 v1Router.use('/lines', authenticateToken, lineRouter);
 v1Router.use('/machines', authenticateToken, machineRouter);
+v1Router.use('/employees', authenticateToken, employeeRouter);
 
 export default v1Router;

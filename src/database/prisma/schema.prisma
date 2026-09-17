@@ -7,109 +7,122 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// =========================
-//   USER & AUTHENTICATION
-// =========================
 model User {
-  id        Int       @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
   email     String
   password  String
   role      String
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-// ==============
-//   DEPARTMENT
-// ==============
 model Department {
-  id            Int               @id @default(autoincrement())
+  id            Int             @id @default(autoincrement())
   name          String
-
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  Line          Line[]
+  Machine       Machine[]
+  Section       Section[]
   SubDepartment SubDepartment[]
-  Section       Section[]
-  Line          Line[]
-  Machine       Machine[]
-
-  createdAt     DateTime          @default(now())
-  updatedAt     DateTime          @updatedAt
+  Employee      Employee[]
 }
 
-// ==================
-//   SUB-DEPARTMENT
-// ==================
 model SubDepartment {
-  id            Int         @id @default(autoincrement())
-  name          String
-
-  departmentId  Int?
-  department    Department? @relation(fields: [departmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  Section       Section[]
-  Line          Line[]
-  Machine       Machine[]
-
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  id           Int         @id @default(autoincrement())
+  name         String
+  departmentId Int?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  Line         Line[]
+  Machine      Machine[]
+  Section      Section[]
+  department   Department? @relation(fields: [departmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Employee     Employee[]
 }
 
-// ===========
-//   SECTION
-// ===========
 model Section {
-  id              Int             @id @default(autoincrement())
+  id              Int            @id @default(autoincrement())
   name            String
-
   departmentId    Int?
-  department      Department?     @relation(fields: [departmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   subDepartmentId Int?
-  subDepartment   SubDepartment?  @relation(fields: [subDepartmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
   Line            Line[]
   Machine         Machine[]
-
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
+  department      Department?    @relation(fields: [departmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  subDepartment   SubDepartment? @relation(fields: [subDepartmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Employee        Employee[]
 }
 
-// ========
-//   LINE
-// ========
 model Line {
-  id              Int             @id @default(autoincrement())
+  id              Int            @id @default(autoincrement())
   name            String
-
   departmentId    Int?
-  department      Department?     @relation(fields: [departmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   subDepartmentId Int?
-  subDepartment   SubDepartment?  @relation(fields: [subDepartmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   sectionId       Int?
-  section         Section?        @relation(fields: [sectionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  department      Department?    @relation(fields: [departmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  section         Section?       @relation(fields: [sectionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  subDepartment   SubDepartment? @relation(fields: [subDepartmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Machine         Machine[]
-
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
+  Employee        Employee[]
 }
 
-// ===========
-//   MACHINE
-// ===========
 model Machine {
-  id              Int             @id @default(autoincrement())
+  id              Int            @id @default(autoincrement())
   name            String
-
   departmentId    Int?
-  department      Department?     @relation(fields: [departmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   subDepartmentId Int?
-  subDepartment   SubDepartment?  @relation(fields: [subDepartmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   sectionId       Int?
-  section         Section?        @relation(fields: [sectionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   lineId          Int?
-  line            Line?           @relation(fields: [lineId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  department      Department?    @relation(fields: [departmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  line            Line?          @relation(fields: [lineId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  section         Section?       @relation(fields: [sectionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  subDepartment   SubDepartment? @relation(fields: [subDepartmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Employee        Employee[]
+}
 
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
+model Employee {
+  id              Int            @id @default(autoincrement())
+  employeeId      String         @unique
+  fullName        String
+  fatherName      String?
+  dob             DateTime
+  gender          String
+  designation     String
+  category        String?
+  departmentId    Int
+  subDepartmentId Int?
+  sectionId       Int?
+  lineId          Int?
+  machineId       Int?
+  grade           String
+  division        String
+  address         String?
+  state           String?
+  pincode         Int?
+  email           String
+  mobile          String
+  doj             DateTime
+  dol             DateTime?
+  isActive        Boolean        @default(true)
+  firstOfDay      DateTime?
+  unit            String?
+  shift           String
+  isDojo          Boolean        @default(false)
+  skill           String
+
+  department      Department     @relation(fields: [departmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  subDepartment   SubDepartment? @relation(fields: [subDepartmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  section         Section?       @relation(fields: [sectionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  line            Line?          @relation(fields: [lineId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  machine         Machine?       @relation(fields: [machineId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
 }
